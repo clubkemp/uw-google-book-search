@@ -16,10 +16,10 @@ function Nav() {
         </Navbar.Brand>
         <Navbar.Menu >
           <Navbar.Container>
-            <Navbar.Item href="/saved">
+            <Navbar.Item href="/search">
               Search
             </Navbar.Item>
-            <Navbar.Item href="#">
+            <Navbar.Item href="saved">
               Saved
             </Navbar.Item>
           </Navbar.Container>

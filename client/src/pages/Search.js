@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 
 import API from "../utils/API";
 import { List, ListItem } from "../components/List";
-import { Input,FormBtn } from "../components/Form";
 import 'react-bulma-components/dist/react-bulma-components.min.css';
-import { Button } from 'react-bulma-components';
-
-function Books() {
+import { Button, Box}  from 'react-bulma-components';
+import { Form } from 'react-bulma-components'
+const {Input, Field, Control, Label} = Form
+function Search() {
   // Setting our component's initial state
   const [googleBooks, setGoogleBooks] = useState([])
   const [books, setBooks] = useState([])
@@ -89,16 +89,24 @@ function Books() {
 
     return (
       <div>
-        <form>
-          <Input
-            onChange={handleInputChange}
-            name="title"
-            placeholder="Title (required)"
-          />
-          <Button color="danger" size="large" rounded outlined disabled={!formObject.title} onClick={handleFormSubmit}>
-            Submit Book
-          </Button>
-        </form>
+        <Box>
+          <form>
+            <Field>
+              <Label>Search for a book</Label>
+              <Control>
+                <Input
+                onChange={handleInputChange}
+                name="title"
+                placeholder="Title (required)"
+                />
+              </Control>
+            </Field>
+            <Button color="primary" rounded outlined disabled={!formObject.title} onClick={handleFormSubmit}>
+              Search
+            </Button>
+          </form>
+        </Box>
+        
         <List>
           {googleBooks.map((book) => {
             // need to catch if any books don't have an other
@@ -123,4 +131,4 @@ function Books() {
   }
 
 
-export default Books;
+export default Search;
