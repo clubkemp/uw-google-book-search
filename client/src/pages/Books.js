@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import API from "../utils/API";
 import { List, ListItem } from "../components/List";
 import { Input,FormBtn } from "../components/Form";
+import 'react-bulma-components/dist/react-bulma-components.min.css';
+import { Button } from 'react-bulma-components';
 
 function Books() {
   // Setting our component's initial state
@@ -93,9 +95,9 @@ function Books() {
             name="title"
             placeholder="Title (required)"
           />
-          <FormBtn disabled={!formObject.title} onClick={handleFormSubmit}>
+          <Button color="danger" size="large" rounded outlined disabled={!formObject.title} onClick={handleFormSubmit}>
             Submit Book
-          </FormBtn>
+          </Button>
         </form>
         <List>
           {googleBooks.map((book) => {
