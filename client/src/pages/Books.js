@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
-import DeleteBtn from "../components/DeleteBtn";
-import Jumbotron from "../components/Jumbotron";
+
 import API from "../utils/API";
-import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
-import { set } from "mongoose";
+import { Input,FormBtn } from "../components/Form";
 
 function Books() {
   // Setting our component's initial state
@@ -103,6 +99,7 @@ function Books() {
         </form>
         <List>
           {googleBooks.map((book) => {
+            // need to catch if any books don't have an other
             return (
               <ListItem key={book.g_id}>
                   <div>
