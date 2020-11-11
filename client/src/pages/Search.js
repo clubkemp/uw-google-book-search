@@ -65,9 +65,9 @@ function Search() {
     const arr1 = books.map(e=>e.g_id)
     const filter = arr1.filter(e=> e===book.g_id)
     if(filter.length > 0){
-      return <button onClick={e=>handleDeleteBook(book.g_id)}>unsave book</button> 
+      return <Button color="warning"onClick={e=>handleDeleteBook(book.g_id)}>unsave book</Button> 
     }else{
-      return <button onClick={e=>handleSaveBook(book)}>save book</button>
+      return <Button color="info"onClick={e=>handleSaveBook(book)}>save book</Button>
     }
   }
   function handleSaveBook(book){

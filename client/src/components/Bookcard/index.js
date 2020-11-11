@@ -1,6 +1,6 @@
 import React from "react";
 import 'react-bulma-components/dist/react-bulma-components.min.css';
-import { Box, Media, Image, Content} from "react-bulma-components";
+import { Box, Media, Image, Content, Button} from "react-bulma-components";
 
 
 function Bookcard(props) {
@@ -25,7 +25,7 @@ function Bookcard(props) {
               <br />
               {desc}
             </p>
-            <button onClick={e=>window.open(link, "_blank")}>View</button>
+            <Button color="success" onClick={e=>window.open(link, "_blank")}>View</Button>
             {props.btn(data)}
           </Content>
         </Media.Item>
