@@ -8,8 +8,7 @@ module.exports = {
     console.log("Axios")
     axios.get('https://www.googleapis.com/books/v1/volumes?q=harry+potter')
     .then(function (response) {
-      console.log(response.data.items)
-      res.json(response)
+      res.json(response.data.items)
     })
     .catch(function (error) {
       // handle error
