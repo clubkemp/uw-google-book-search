@@ -1,12 +1,30 @@
 import React from "react";
+import 'react-bulma-components/dist/react-bulma-components.min.css';
+import { Navbar } from 'react-bulma-components';
+
+
 
 function Nav() {
+  
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a className="navbar-brand" href="/">
-        React Reading List
-      </a>
-    </nav>
+    <Navbar>
+        <Navbar.Brand>
+          <Navbar.Item renderAs="a" href="#">
+            Google Books
+          </Navbar.Item>
+          <Navbar.Burger />
+        </Navbar.Brand>
+        <Navbar.Menu >
+          <Navbar.Container>
+            <Navbar.Item href="/saved">
+              Search
+            </Navbar.Item>
+            <Navbar.Item href="#">
+              Saved
+            </Navbar.Item>
+          </Navbar.Container>
+        </Navbar.Menu>
+      </Navbar>
   );
 }
 
