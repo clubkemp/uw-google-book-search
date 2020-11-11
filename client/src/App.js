@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Books from "./pages/Books";
+import Search from "./pages/Search";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero"
 
@@ -11,8 +11,8 @@ function App() {
         <Nav />
         <Hero />
         <Switch>
-          <Route exact path={["/", "/books"]}>
-            <Books />
+          <Route exact path={["/", "/search"]}>
+            <Search />
           </Route>
         </Switch>
       </div>
