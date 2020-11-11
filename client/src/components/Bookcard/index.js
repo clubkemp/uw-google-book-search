@@ -3,8 +3,11 @@ import 'react-bulma-components/dist/react-bulma-components.min.css';
 import { Box, Media, Image, Content} from "react-bulma-components";
 
 
-function Bookcard({ data }) {
-    const {image, title, authors, desc, link } = data
+function Bookcard(props) {
+    console.log(props)
+    const data = props.data
+    const {image, title, authors, desc, link, btnFuntion } = data
+    console.log(btnFuntion)
   return (
     <Box>
       <Media>
@@ -18,12 +21,12 @@ function Bookcard({ data }) {
         <Media.Item>
           <Content>
             <p>
-              <strong>{title}</strong> <small>by {authors.join(", ")}</small>
+              <strong>{title}</strong> <small>by {authors}</small>
               <br />
               {desc}
             </p>
             <button onClick={e=>window.open(link, "_blank")}>View</button>
-            
+            {props.btn(data)}
           </Content>
         </Media.Item>
       </Media>

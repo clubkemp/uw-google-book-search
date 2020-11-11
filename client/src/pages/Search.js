@@ -97,6 +97,7 @@ function Search() {
               <Control>
                 <Input
                 onChange={handleInputChange}
+                value={formObject.title}
                 name="title"
                 placeholder="Title (required)"
                 />
@@ -110,19 +111,7 @@ function Search() {
           {googleBooks.map((book) => {
             // need to catch if any books don't have an other
             return (
-              <Bookcard data={book} btnFunction={saveOrDeleteBtn} />
-              // <ListItem key={book.g_id}>
-              //     <div>
-              //       <img src={book.image} />
-              //     </div>
-              //     <strong>{book.title}</strong><span> by {book.authors.join(", ")}</span> 
-              //     <p>{book.desc}</p>
-              //     <div>
-              //     <button onClick={e=>window.open(book.link, "_blank")}>View</button>
-              //       {saveOrDeleteBtn(book)}
-              //     </div>
-                
-              // </ListItem>
+              <Bookcard data={book} btn={saveOrDeleteBtn} />
             );
           })}
       </div>
