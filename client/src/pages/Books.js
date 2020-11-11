@@ -99,6 +99,7 @@ function Books() {
         </form>
         <List>
           {googleBooks.map((book) => {
+            // need to catch if any books don't have an other
             return (
               <ListItem key={book.g_id}>
                   <div>
