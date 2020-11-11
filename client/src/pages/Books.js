@@ -6,62 +6,60 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
+import { set } from "mongoose";
 
 function Books() {
   // Setting our component's initial state
-  const [books, setBooks] = useState([])
+  const [googleBooks, setGoogleBooks] = useState([])
   const [formObject, setFormObject] = useState({})
 
   // Load all books and store them with setBooks
   useEffect(() => {
-    loadBooks()
+    
   }, [])
 
-  // Loads all books and sets them to books
-  function loadBooks() {
-    API.getBooks(formObject)
-      .then(res =>{ 
-        setBooks(res.data)
-      })
-      .catch(err => console.log(err));
-  };
-
   // Deletes a book from the database with a given id, then reloads books from the db
-  function deleteBook(id) {
-    API.deleteBook(id)
-      .then(res => loadBooks())
-      .catch(err => console.log(err));
-  }
+  // function deleteBook(id) {
+  //   API.deleteBook(id)
+  //     .then(res => loadBooks())
+  //     .catch(err => console.log(err));
+  // }
 
   // Handles updating component state when the user types into the input field
   function handleInputChange(event) {
     const { name, value } = event.target;
-    setFormObject({...formObject, [name]: value})
+    setFormObject({...formObject.title, [name]: value})
   };
 
   // When the form is submitted, use the API.saveBook method to save the book data
   // Then reload books from the database
   function handleFormSubmit(event) {
     event.preventDefault();
+    setGoogleBooks([])
     if (formObject.title) {
-      API.saveBook({
-        title: formObject.title,
-        author: formObject.author,
-        synopsis: formObject.synopsis
+      API.getBooks(formObject.title)
+      .then(res =>{ 
+        const books = res.data.map(e=>{
+          console.log(e)
+          const book = {
+            title:e.volumeInfo.title, 
+            authors:e.volumeInfo.authors, 
+            desc:e.volumeInfo.description, 
+            image:e.volumeInfo.imageLinks.thumbnail, 
+            link:e.selfLink
+          }
+          return book
+        })
+        console.log(books)
+        setGoogleBooks(books)
       })
-        .then(res => loadBooks())
-        .catch(err => console.log(err));
+      .catch(err => console.log(err));
     }
   };
 
     return (
-      <Container fluid>
-        <Row>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>What Books Should I Read?</h1>
-            </Jumbotron>
-            <form>
+            <div>
+              <form>
               <Input
                 onChange={handleInputChange}
                 name="title"
@@ -74,31 +72,21 @@ function Books() {
                 Submit Book
               </FormBtn>
             </form>
-          </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Books On My List</h1>
-            </Jumbotron>
-            {books.length ? (
               <List>
-                {books.map(book => (
+                {googleBooks.map(book => (
                   <ListItem key={book._id}>
                     <Link to={"/books/" + book._id}>
                       <strong>
                         {book.title} by {book.author}
                       </strong>
                     </Link>
-                    <DeleteBtn onClick={() => deleteBook(book._id)} />
+                    {/* <DeleteBtn onClick={() => deleteBook(book._id)} /> */}
                   </ListItem>
                 ))}
               </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-          </Col>
-        </Row>
-      </Container>
-    );
+            </div>
+            
+            )
   }
 
 

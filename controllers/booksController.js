@@ -5,11 +5,17 @@ const axios = require('axios');
 module.exports = {
   
   findAll: function(req, res) {
-    console.log("Axios")
-    axios.get('https://www.googleapis.com/books/v1/volumes?q=harry+potter')
+    db.Book
+      .find(req.query)
+      .sort({ date: -1 })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  findGoogle: function(req, res) {
+    console.log(req.params.title)
+    axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.params.title}`)
     .then(function (response) {
-      console.log(response.data.items)
-      res.json(response)
+      res.json(response.data.items)
     })
     .catch(function (error) {
       // handle error
