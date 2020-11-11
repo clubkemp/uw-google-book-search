@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import API from "../utils/API";
 import { List, ListItem } from "../components/List";
+import Bookcard from "../components/Bookcard";
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import { Button, Box}  from 'react-bulma-components';
 import { Form } from 'react-bulma-components'
@@ -106,26 +107,24 @@ function Search() {
             </Button>
           </form>
         </Box>
-        
-        <List>
           {googleBooks.map((book) => {
             // need to catch if any books don't have an other
             return (
-              <ListItem key={book.g_id}>
-                  <div>
-                    <img src={book.image} />
-                  </div>
-                  <strong>{book.title}</strong><span> by {book.authors.join(", ")}</span> 
-                  <p>{book.desc}</p>
-                  <div>
-                  <button onClick={e=>window.open(book.link, "_blank")}>View</button>
-                    {saveOrDeleteBtn(book)}
-                  </div>
+              <Bookcard data={book} btnFunction={saveOrDeleteBtn} />
+              // <ListItem key={book.g_id}>
+              //     <div>
+              //       <img src={book.image} />
+              //     </div>
+              //     <strong>{book.title}</strong><span> by {book.authors.join(", ")}</span> 
+              //     <p>{book.desc}</p>
+              //     <div>
+              //     <button onClick={e=>window.open(book.link, "_blank")}>View</button>
+              //       {saveOrDeleteBtn(book)}
+              //     </div>
                 
-              </ListItem>
+              // </ListItem>
             );
           })}
-        </List>
       </div>
     );
   }

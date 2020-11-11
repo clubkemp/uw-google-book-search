@@ -1,5 +1,4 @@
 import React from "react";
-import 'react-bulma-components/dist/react-bulma-components.min.css';
 import { Hero, Container, Heading } from 'react-bulma-components';
 
 
