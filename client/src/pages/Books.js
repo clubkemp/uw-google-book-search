@@ -28,7 +28,7 @@ function Books() {
   // Handles updating component state when the user types into the input field
   function handleInputChange(event) {
     const { name, value } = event.target;
-    setFormObject({...formObject, [name]: value})
+    setFormObject({...formObject.title, [name]: value})
   };
 
   // When the form is submitted, use the API.saveBook method to save the book data
@@ -37,7 +37,7 @@ function Books() {
     event.preventDefault();
     setGoogleBooks([])
     if (formObject.title) {
-      API.getBooks(formObject)
+      API.getBooks(formObject.title)
       .then(res =>{ 
         const books = res.data.map(e=>{
           console.log(e)
