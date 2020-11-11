@@ -6,7 +6,7 @@ router.route("/")
   .get(booksController.findAll)
   .post(booksController.create);
 
-  router.route("/:title")
+  router.route("/gb/:title")
   .get(booksController.findGoogle)
 
 // Matches with "/api/books/:id"

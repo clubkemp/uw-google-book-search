@@ -11,19 +11,23 @@ import { set } from "mongoose";
 function Books() {
   // Setting our component's initial state
   const [googleBooks, setGoogleBooks] = useState([])
+  const [books, setBooks] = useState([])
   const [formObject, setFormObject] = useState({})
 
   // Load all books and store them with setBooks
   useEffect(() => {
-    
+    loadBooks()
   }, [])
 
-  // Deletes a book from the database with a given id, then reloads books from the db
-  // function deleteBook(id) {
-  //   API.deleteBook(id)
-  //     .then(res => loadBooks())
-  //     .catch(err => console.log(err));
-  // }
+  function loadBooks() {
+    API.getBooks()
+      .then(res => 
+        setBooks(res.data)
+      )
+      .catch(err => console.log(err));
+  };
+
+  
 
   // Handles updating component state when the user types into the input field
   function handleInputChange(event) {
@@ -37,11 +41,12 @@ function Books() {
     event.preventDefault();
     setGoogleBooks([])
     if (formObject.title) {
-      API.getBooks(formObject.title)
+      API.getGBooks(formObject.title)
       .then(res =>{ 
         const books = res.data.map(e=>{
           console.log(e)
           const book = {
+            g_id:e.id,
             title:e.volumeInfo.title, 
             authors:e.volumeInfo.authors, 
             desc:e.volumeInfo.description, 
@@ -56,37 +61,74 @@ function Books() {
       .catch(err => console.log(err));
     }
   };
+  function saveOrDeleteBtn (book){
+    const exists=[{
+      _id:"MongoID",
+      g_id:"o-QCOFDHmPEC",
+      title:"title", 
+      authors:["authors"], 
+      desc:"desc", 
+      image:"image", 
+      link:"self"}]
+
+    const arr1 = exists.map(e=>e.g_id)
+    const filter = arr1.filter(e=> e===book.g_id)
+    if(filter.length > 0){
+      return <button onClick={e=>handleDeleteBook(book.g_id)}>unsave book</button> 
+    }else{
+      return <button onClick={e=>handleSaveBook(book)}>save book</button>
+    }
+  }
+  function handleSaveBook(book){
+    API.saveBook({
+      g_id:book.g_id,
+      title:book.title, 
+      authors:book.authors, 
+      desc:book.desc, 
+      image:book.image, 
+      link:book.link})
+      .then(res => loadBooks())
+      .catch(err => console.log(err));
+  }
+  // Deletes a book from the database with a given id, then reloads books from the db
+  function handleDeleteBook(id) {
+    API.deleteBook(id)
+      .then(res => loadBooks())
+      .catch(err => console.log(err));
+  }
 
     return (
-            <div>
-              <form>
-              <Input
-                onChange={handleInputChange}
-                name="title"
-                placeholder="Title (required)"
-              />
-              <FormBtn
-                disabled={!formObject.title}
-                onClick={handleFormSubmit}
-              >
-                Submit Book
-              </FormBtn>
-            </form>
-              <List>
-                {googleBooks.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
-                      </strong>
-                    </Link>
-                    {/* <DeleteBtn onClick={() => deleteBook(book._id)} /> */}
-                  </ListItem>
-                ))}
-              </List>
-            </div>
-            
-            )
+      <div>
+        <form>
+          <Input
+            onChange={handleInputChange}
+            name="title"
+            placeholder="Title (required)"
+          />
+          <FormBtn disabled={!formObject.title} onClick={handleFormSubmit}>
+            Submit Book
+          </FormBtn>
+        </form>
+        <List>
+          {googleBooks.map((book) => {
+            return (
+              <ListItem key={book.g_id}>
+                  <div>
+                    <img src={book.image} />
+                  </div>
+                  <strong>{book.title}</strong><span> by {book.authors.join(", ")}</span> 
+                  <p>{book.desc}</p>
+                  <div>
+                  <Link to={"/books/" + book.g_id}><button>View</button></Link>
+                    {saveOrDeleteBtn(book)}
+                  </div>
+                
+              </ListItem>
+            );
+          })}
+        </List>
+      </div>
+    );
   }
 
 
