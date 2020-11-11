@@ -51,7 +51,7 @@ function Books() {
             authors:e.volumeInfo.authors, 
             desc:e.volumeInfo.description, 
             image:e.volumeInfo.imageLinks.thumbnail, 
-            link:e.selfLink
+            link:e.volumeInfo.infoLink
           }
           return book
         })
@@ -62,16 +62,8 @@ function Books() {
     }
   };
   function saveOrDeleteBtn (book){
-    const exists=[{
-      _id:"MongoID",
-      g_id:"o-QCOFDHmPEC",
-      title:"title", 
-      authors:["authors"], 
-      desc:"desc", 
-      image:"image", 
-      link:"self"}]
 
-    const arr1 = exists.map(e=>e.g_id)
+    const arr1 = books.map(e=>e.g_id)
     const filter = arr1.filter(e=> e===book.g_id)
     if(filter.length > 0){
       return <button onClick={e=>handleDeleteBook(book.g_id)}>unsave book</button> 
@@ -119,7 +111,7 @@ function Books() {
                   <strong>{book.title}</strong><span> by {book.authors.join(", ")}</span> 
                   <p>{book.desc}</p>
                   <div>
-                  <Link to={"/books/" + book.g_id}><button>View</button></Link>
+                  <button onClick={e=>window.open(book.link, "_blank")}>View</button>
                     {saveOrDeleteBtn(book)}
                   </div>
                 

@@ -12,7 +12,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findGoogle: function(req, res) {
-    console.log(req.params.title)
     axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.params.title}`)
     .then(function (response) {
       res.json(response.data.items)
@@ -47,8 +46,9 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {
+    console.log(req.params.id)
     db.Book
-      .findById({ _id: req.params.id })
+      .findOne({ g_id: req.params.id })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
