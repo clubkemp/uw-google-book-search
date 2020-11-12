@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import API from "../utils/API";
 import { List, ListItem } from "../components/List";
+import Bookcard from "../components/Bookcard";
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import { Button, Box}  from 'react-bulma-components';
 import { Form } from 'react-bulma-components'
@@ -64,9 +65,9 @@ function Search() {
     const arr1 = books.map(e=>e.g_id)
     const filter = arr1.filter(e=> e===book.g_id)
     if(filter.length > 0){
-      return <button onClick={e=>handleDeleteBook(book.g_id)}>unsave book</button> 
+      return <Button color="warning"onClick={e=>handleDeleteBook(book.g_id)}>unsave book</Button> 
     }else{
-      return <button onClick={e=>handleSaveBook(book)}>save book</button>
+      return <Button color="info"onClick={e=>handleSaveBook(book)}>save book</Button>
     }
   }
   function handleSaveBook(book){
@@ -96,6 +97,7 @@ function Search() {
               <Control>
                 <Input
                 onChange={handleInputChange}
+                value={formObject.title}
                 name="title"
                 placeholder="Title (required)"
                 />
@@ -106,26 +108,12 @@ function Search() {
             </Button>
           </form>
         </Box>
-        
-        <List>
           {googleBooks.map((book) => {
             // need to catch if any books don't have an other
             return (
-              <ListItem key={book.g_id}>
-                  <div>
-                    <img src={book.image} />
-                  </div>
-                  <strong>{book.title}</strong><span> by {book.authors.join(", ")}</span> 
-                  <p>{book.desc}</p>
-                  <div>
-                  <button onClick={e=>window.open(book.link, "_blank")}>View</button>
-                    {saveOrDeleteBtn(book)}
-                  </div>
-                
-              </ListItem>
+              <Bookcard data={book} btn={saveOrDeleteBtn} />
             );
           })}
-        </List>
       </div>
     );
   }
