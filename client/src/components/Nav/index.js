@@ -1,15 +1,10 @@
 import React from "react";
 import 'react-bulma-components/dist/react-bulma-components.min.css';
-import { Navbar, Dropdown, Menu, Columns } from 'react-bulma-components';
+import { Navbar} from 'react-bulma-components';
 
 
 
 function Nav() {
-  const dropDownBurger=()=>{
-    // return(
-      
-    // )
-  }
   return (
     <div>
       <Navbar>

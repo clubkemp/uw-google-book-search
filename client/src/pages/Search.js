@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import API from "../utils/API";
-import { List, ListItem } from "../components/List";
 import Bookcard from "../components/Bookcard";
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import { Button, Box}  from 'react-bulma-components';
