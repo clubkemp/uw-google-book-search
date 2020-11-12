@@ -1,20 +1,25 @@
 import React from "react";
 import 'react-bulma-components/dist/react-bulma-components.min.css';
-import { Navbar } from 'react-bulma-components';
+import { Navbar, Dropdown, Menu, Columns } from 'react-bulma-components';
 
 
 
 function Nav() {
-  
+  const dropDownBurger=()=>{
+    // return(
+      
+    // )
+  }
   return (
-    <Navbar>
+    <div>
+      <Navbar>
         <Navbar.Brand>
           <Navbar.Item renderAs="a" href="#">
             Google Books
           </Navbar.Item>
-          <Navbar.Burger />
         </Navbar.Brand>
-        <Navbar.Menu >
+        
+        <Navbar.Menu className="is-active">
           <Navbar.Container>
             <Navbar.Item href="/search">
               Search
@@ -24,7 +29,13 @@ function Nav() {
             </Navbar.Item>
           </Navbar.Container>
         </Navbar.Menu>
+
       </Navbar>
+      
+    </div>
+    
+      
+      
   );
 }
 
